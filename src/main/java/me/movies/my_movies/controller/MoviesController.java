@@ -41,4 +41,10 @@ public class MoviesController {
         MoviesDTO movie = moviesService.findById(id);
         return ResponseEntity.ok(movie);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMovie(@PathVariable Long id) {
+        moviesService.deleteMovie(id);
+        return ResponseEntity.ok("Filme deletado com sucesso");
+    }
 }

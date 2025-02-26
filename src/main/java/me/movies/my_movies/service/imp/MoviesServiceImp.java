@@ -2,12 +2,11 @@ package me.movies.my_movies.service.imp;
 
 import me.movies.my_movies.DTO.MoviesDTO;
 import me.movies.my_movies.model.Movies;
+import me.movies.my_movies.model.Users;
 import me.movies.my_movies.repository.MoviesRepository;
 import me.movies.my_movies.repository.UserRepository;
 import me.movies.my_movies.service.MoviesService;
 import org.springframework.stereotype.Service;
-
-import java.util.NoSuchElementException;
 
 @Service
 public class MoviesServiceImp implements MoviesService {
@@ -33,5 +32,20 @@ public class MoviesServiceImp implements MoviesService {
 
         Movies savedMovie = moviesRepository.save(moviesToCreate);
         return new MoviesDTO(savedMovie);
+    }
+
+    @Override
+    public void deleteMovie(Long id) {
+        Movies movie = moviesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Movie not found"));
+
+        for (Users user : movie.getUsers()) {
+            user.getMovies().remove(movie);
+        }
+
+        movie.getUsers().clear();
+        moviesRepository.save(movie);
+
+        moviesRepository.deleteById(id);
     }
 }

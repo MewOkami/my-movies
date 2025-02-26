@@ -7,4 +7,6 @@ public interface MoviesService {
 
     MoviesDTO findById(Long id);
     MoviesDTO create(Movies moviesToCreate);
+
+    void deleteMovie(Long id);
 }

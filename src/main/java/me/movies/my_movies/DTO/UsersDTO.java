@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotBlank;
 import me.movies.my_movies.model.Movies;
 import me.movies.my_movies.model.Users;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

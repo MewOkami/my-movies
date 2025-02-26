@@ -1,15 +1,9 @@
 package me.movies.my_movies.controller;
 
-import me.movies.my_movies.DTO.MoviesDTO;
 import me.movies.my_movies.DTO.UsersDTO;
-import me.movies.my_movies.model.Movies;
-import me.movies.my_movies.model.Users;
 import me.movies.my_movies.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/users")
@@ -39,5 +33,11 @@ public class UserController {
     public ResponseEntity<UsersDTO> findById(@PathVariable Long id) {
         UsersDTO user = userService.findById(id);
         return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUsers(@PathVariable Long id) {
+        userService.deleteUsers(id);
+        return ResponseEntity.ok("User deletado com sucesso");
     }
 }

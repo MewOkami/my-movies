@@ -44,4 +44,19 @@ public class UserServiceImp implements UserService {
 
         return new UsersDTO(savedUser);
     }
+
+    @Override
+    public void deleteUsers(Long id) {
+        Users users = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        for (Movies movies : users.getMovies()) {
+            movies.getUsers().remove(users);
+        }
+
+        users.getMovies().clear();
+        userRepository.save(users);
+
+        userRepository.deleteById(id);
+    }
 }

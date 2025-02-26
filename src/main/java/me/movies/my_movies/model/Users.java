@@ -2,6 +2,8 @@ package me.movies.my_movies.model;
 
 import jakarta.persistence.*;
 import me.movies.my_movies.DTO.UsersDTO;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +25,7 @@ public class Users {
     private String email;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(
             name = "user_movies",
             joinColumns = @JoinColumn(name = "user_id"),
